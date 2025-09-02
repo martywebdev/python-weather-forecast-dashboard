@@ -6,7 +6,7 @@ load_dotenv()
 api_key = os.getenv("API_KEY")
 
 
-def get_data(place, forecast_days=1, kind='Temperature'):
+def get_data(place='manila', forecast_days=1, kind='Temperature'):
     geo_url =  f"https://api.openweathermap.org/geo/1.0/direct?q={place}&limit={1}&appid={api_key}"
 
     geo_response = requests.get(geo_url)
@@ -26,10 +26,7 @@ def get_data(place, forecast_days=1, kind='Temperature'):
     filtered_data = data['list']
     # manual filtering = 24 hours / 3 = 8 points * 5 days = 40 is the len
 
-    if kind == 'Temperature':
-        filtered_data = [dict['main']['temp'] for dict in filtered_data]
-    if kind == "Sky":
-        filtered_data = [dict['weather'][0]['main'] for dict in filtered_data]
+
     return filtered_data
 
 
